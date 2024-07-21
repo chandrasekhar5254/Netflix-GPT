@@ -1,9 +1,10 @@
 import React from "react";
+import Body from "./components/Body";
 
 export default function App() {
   return (
     <div>
-      <h2>c mdnbckdk</h2>
+      <Body />
     </div>
   );
 }
