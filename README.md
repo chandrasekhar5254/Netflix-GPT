@@ -11,6 +11,9 @@
 - Firebase Setup
 - Deploying our app to production
 - Create Sign up to Account
+- Create Redux with createSlce
+- Update Profile picture
+- implement sign out
 
 # Features
 

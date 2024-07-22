@@ -2,23 +2,72 @@ import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { BG_LINK } from "../utils/Links";
 import { checkValidData } from "./Validate";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../utils/Firebase";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { adduser } from "../redux/userSlice";
+import profileImage from "../assets/Chandrasekhar.jpg";
+
 const Login = () => {
   const [signUpForm, setSignUpForm] = useState(true);
   const [errorMsg, setErrorMsg] = useState(null);
 
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const name = useRef(null);
   const email = useRef(null);
   const password = useRef(null);
 
   const handleChange = () => {
     setSignUpForm(!signUpForm);
   };
+
   const handlevalidBtn = () => {
     const message = checkValidData(email.current.value, password.current.value);
     setErrorMsg(message);
     if (message) return;
+
     if (!signUpForm) {
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          const user = userCredential.user;
+          updateProfile(user, {
+            displayName: name.current.value,
+            photoURL: profileImage, // Use imported profile image
+          })
+            .then(() => {
+              const { uid, email, displayName, photoURL } = auth.currentUser;
+              dispatch(adduser({ uid, email, displayName, photoURL }));
+              navigate("/browse");
+            })
+            .catch((error) => {
+              setErrorMsg(error.message);
+            });
+        })
+        .catch((error) => {
+          setErrorMsg(`${error.code} - ${error.message}`);
+        });
     } else {
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then(() => {
+          navigate("/browse");
+        })
+        .catch((error) => {
+          setErrorMsg(`${error.code} - ${error.message}`);
+        });
     }
   };
 
@@ -38,21 +87,20 @@ const Login = () => {
           </h1>
           {!signUpForm && (
             <div className="mb-4">
-              <label className="block text-sm font-medium mb-2" htmlFor="email">
+              <label className="block text-sm font-medium mb-2" htmlFor="name">
                 Name
               </label>
               <input
+                ref={name}
                 type="text"
-                id="text"
+                id="name"
                 placeholder="Enter Name"
                 className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-red-600"
               />
             </div>
           )}
           <div className="mb-4">
-            <label className="block text-sm font-medium mb-2">
-              Email or mobile number
-            </label>
+            <label className="block text-sm font-medium mb-2">Email</label>
             <input
               ref={email}
               type="text"
@@ -71,30 +119,33 @@ const Login = () => {
               placeholder="Password"
               className="w-full px-3 py-2 bg-gray-800 border border-gray-700 rounded focus:outline-none focus:ring-2 focus:ring-red-600"
             />
+            <p className="text-red-500 font-medium text-xs py-2">{errorMsg}</p>
           </div>
-          <p className="text-red-500 font-medium text-xs py-2">{errorMsg}</p>
-          <div className="flex items-center justify-between mb-6">
-            {signUpForm && (
-              <a className="text-sm text-gray-400 hover:text-gray-200" href="#">
+          {signUpForm && (
+            <div className="flex items-end justify-end mb-5">
+              <a
+                className="text-sm text-gray-400 hover:text-gray-200 hover:underline"
+                href="#"
+              >
                 Forgot password?
               </a>
-            )}
-          </div>
+            </div>
+          )}
           <button
             className="w-full bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:ring-2 focus:ring-red-600"
             type="submit"
-            onClick={() => handlevalidBtn()}
+            onClick={handlevalidBtn}
           >
             {signUpForm ? "Sign In" : "Sign Up"}
           </button>
           <div className="flex items-center justify-center mt-6">
             <p
               className="text-sm text-gray-400 hover:cursor-pointer"
-              onClick={() => handleChange()}
+              onClick={handleChange}
             >
               {signUpForm
                 ? "New to Netflix? Sign up now."
-                : "Already registerd? Sign in Now"}
+                : "Already registered? Sign in Now"}
             </p>
           </div>
           <div className="text-center text-gray-400 text-xs mt-6">
