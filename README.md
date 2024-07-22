@@ -14,6 +14,21 @@
 - Create Redux with createSlce
 - Update Profile picture
 - implement sign out
+- Update Profile
+- BugFix: Sign up user displayName and profile picture update
+- BugFix: if the user not logged in Redirect/browse page to login
+- Unsubscribed to the onAuthStateChanged callback
+- Add hardcoded values to the constants file.
+- Rigister TMDB API & Create an app & access token
+- Get Data from TMDB now playing movies list API
+- Custom Hook from Now Playing movies
+- Create MovieSclice
+- Update Store With Movie Data
+- Planning for maincontainer & secondary container
+- Fetch Data for trailer Video
+- update store with trailer video data
+- Embedded the youtube video and make it autoplay and white
+- tailwind classes to make main container look awesome
 
 # Features
 
