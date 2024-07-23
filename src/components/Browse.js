@@ -1,20 +1,19 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Header from "./Header";
-import { BG_LINK } from "../utils/Links";
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
+import useTopRatedMovies from "../hooks/useTopRatedMovies";
+import usePopularMovies from "../hooks/usePopularMovies";
 import MainConatiner from "./MainConatiner";
 import SecondaryContainer from "./SecondaryContainer";
 const Browse = () => {
   useNowPlayingMovies();
+  usePopularMovies();
+  useTopRatedMovies();
   return (
     <div>
       <Header />
       <MainConatiner />
       <SecondaryContainer />
-      {/* <div
-        className="h-screen bg-cover bg-center"
-        style={{ backgroundImage: `url(${BG_LINK})` }}
-      ></div> */}
     </div>
   );
 };

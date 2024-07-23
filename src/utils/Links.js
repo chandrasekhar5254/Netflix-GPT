@@ -10,5 +10,8 @@ export const API_OPTIONS = {
       "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI0YjkyYTEzY2Q4NTRiNGQ2ZTYyMTQxNGNhYmFiMTAzNiIsIm5iZiI6MTcyMTYzOTkxMS42ODU1MjEsInN1YiI6IjY2OWUxYjhhM2NkN2NlNjU4MTRjNTRkOCIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.5B-bfSIhthcDi35qnEzhsBwP3GDBvcvykmA_LffBl-M",
   },
 };
-export const API_URL = "https://api.themoviedb.org/3/movie/now_playing";
-// export const API_VIDEO_URL = "https://api.themoviedb.org/3/movie";
+export const API_URL_NOW_PLAYING =
+  "https://api.themoviedb.org/3/movie/now_playing";
+export const API_URL_PAPULOR = "https://api.themoviedb.org/3/movie/popular";
+export const API_URL_TOP_RATED = "https://api.themoviedb.org/3/movie/top_rated";
+export const CDN_IMG_URL = "https://image.tmdb.org/t/p/w300";
