@@ -15,3 +15,8 @@ export const API_URL_NOW_PLAYING =
 export const API_URL_PAPULOR = "https://api.themoviedb.org/3/movie/popular";
 export const API_URL_TOP_RATED = "https://api.themoviedb.org/3/movie/top_rated";
 export const CDN_IMG_URL = "https://image.tmdb.org/t/p/w300";
+export const SUPPORTED_LANGAGES = [
+  { identifier: "en", name: "English" },
+  { identifier: "hindi", name: "Hindi" },
+  { identifier: "spanish", name: "Spanish" },
+];

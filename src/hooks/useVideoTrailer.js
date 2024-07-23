@@ -1,4 +1,4 @@
-import { API_OPTIONS, API_VIDEO_URL } from "../utils/Links";
+import { API_OPTIONS } from "../utils/Links";
 import { useDispatch } from "react-redux";
 import { setTrailerVideo } from "../redux/movieSlice";
 import { useEffect } from "react";
